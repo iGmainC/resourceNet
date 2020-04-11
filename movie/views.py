@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
-from pprint import pprint
 from django.views.decorators.csrf import csrf_exempt
+from movie.models import Movie
 
 # Create your views here.
 def index(request):
@@ -10,6 +10,8 @@ def index(request):
 
 @csrf_exempt
 def postbox(request):
-    if(request.method == 'POST'):
-        a = dict(request.POST)
-    return HttpResponse(str(a))
+    if request.method == 'POST':
+        d = json.loads(request.body)
+        d = d['date']
+        m = Movie(name=d['name'],file_idm=d['idm'],download_url=d['url'])
+        m.save()
