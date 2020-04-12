@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\movie",
+    "\\movie\\static",
     "\\resourcesNet"
   ],
-  "SelectedNode": "\\movie\\urls.py",
+  "SelectedNode": "\\movie\\static\\font",
   "PreviewInSolutionExplorer": false
 }

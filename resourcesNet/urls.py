@@ -20,4 +20,5 @@ import movie
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('movie/',include("movie.urls")),
+    path('book/',include("book.urls")),
 ]

@@ -6,7 +6,7 @@ import json
 class Movie(models.Model):
     id = IntegerField(primary_key=True)
     name = CharField(max_length=100)
-    file_idm = CharField(null = True,max_length=100)
+    file_idm = CharField(max_length=100,null = True)
     douban_id = CharField(max_length=15,null = True)
     download_url = CharField(max_length=300)
     cover_img_url = CharField(null = True,max_length=300)
