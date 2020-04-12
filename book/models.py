@@ -1,19 +1,23 @@
 from django.db import models
-from django.db.models import CharField, DateTimeField, IntegerField
+from django.db.models import CharField, DateTimeField, IntegerField, BooleanField
 import json
 
 class Book(models.Model):
     id = IntegerField(primary_key=True)
-    book_name = CharField(max_length=100,null=True,name='书名')
-    author = CharField(max_length=100,null=True,name='作者')
-    file_idm = CharField(max_length=100,null=True)
-    douban_id = CharField(max_length=115,null=True)
-    cover_img_url = CharField(max_length=300,null = True,name='封面链接')
-    brief = CharField(max_length=1000,null = True,name='简介')
-    epub_download_url = CharField(max_length=300,null=True)
-    mobi_download_url = CharField(max_length=300,null=True)
-    pdf_download_url = CharField(max_length=300,null=True)
-    azw3_download_url = CharField(max_length=300,null=True)
+    book_name = CharField(max_length=100,null=True,blank=True,verbose_name='书名')
+    author = CharField(max_length=100,null=True,blank=True,verbose_name='作者')
+    file_idm = CharField(max_length=100,null=True,blank=True)
+    douban_id = CharField(max_length=115,null=True,blank=True)
+    cover_img_url = CharField(max_length=300,null = True,verbose_name='封面链接')
+    brief = CharField(max_length=1000,null = True,verbose_name='简介')
+    epub_download_url = CharField(max_length=300,null=True,blank=True)
+    mobi_download_url = CharField(max_length=300,null=True,blank=True)
+    pdf_download_url = CharField(max_length=300,null=True,blank=True)
+    azw3_download_url = CharField(max_length=300,null=True,blank=True)
+    epub_flag = BooleanField(default=False)
+    mobi_flag = BooleanField(default=False)
+    pdf_flag = BooleanField(default=False)
+    azw3_flag = BooleanField(default=False)
     date = DateTimeField()
 
     def __str__(self):

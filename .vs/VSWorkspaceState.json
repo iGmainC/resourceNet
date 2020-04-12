@@ -1,10 +1,18 @@
 {
   "ExpandedNodes": [
     "",
+    "\\book",
+    "\\book\\static",
+    "\\book\\static\\book",
+    "\\book\\static\\book\\css",
+    "\\book\\static\\book\\images",
+    "\\book\\templates",
+    "\\book\\templates\\book",
     "\\movie",
     "\\movie\\static",
-    "\\resourcesNet"
+    "\\movie\\static\\movie",
+    "\\movie\\static\\movie\\css"
   ],
-  "SelectedNode": "\\movie\\static\\font",
+  "SelectedNode": "\\book\\admin.py",
   "PreviewInSolutionExplorer": false
 }
