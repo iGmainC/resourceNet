@@ -21,7 +21,7 @@ class Book(models.Model):
     date = DateTimeField()
 
     def __str__(self):
-        return self.书名
+        return self.book_name
 
     def toDict(self):
         return {

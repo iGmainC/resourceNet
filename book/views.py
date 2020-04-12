@@ -11,8 +11,9 @@ import re
 #从豆瓣获取图书信息
 def get_book_data(book_name):
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.45'}
-    url = 'https://douban.uieee.com/v2/book/search'
-    data_pack = {'q':book_name,'count': 1,'start':0}
+    #url = 'https://douban.uieee.com/v2/book/search'
+    url = 'https://api.douban.com/v2/book/search'
+    data_pack = {'q':book_name,'count': 1,'start':0,'apikey':'0b2bdeda43b5688921839c8ecb20399b'}
     data = requests.get(url,headers=headers,params=data_pack)
     if data.status_code != 200:
         return None
@@ -31,9 +32,14 @@ def index(request):
 def postbox(request):
     if request.method == "POST":
         d = json.loads(request.body)
+        pprint(d)
         d_l = d['name'].split('.')
         name,format = d_l[0],d_l[1]     #将书名和文件格式分离
+        print(name)
         douban_data = get_book_data(name)
+        pprint(douban_data)
+        if douban_data == None:
+            return HttpResponse('豆瓣数据获取失败')
         if Book.objects.filter(douban_id=douban_data['id']):    #用豆瓣id查询数据库
             b = Book.objects.get(douban_id=douban_data['id'])
             if format == 'epub' and b.epub_flag == False:
@@ -46,11 +52,11 @@ def postbox(request):
                 b.mobi_download_url = d['url']
         else:
             date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            b = Book(name = douban_data['title'],
-                     aurhor = douban_id['author'][0],
+            b = Book(book_name = douban_data['title'],
+                     author = douban_data['author'][0],
                  file_idm=d['idm'],
-                 douban_id=douban_id['id'],
-                 cover_img_url='https://images.weserv.nl/?url=' + douban_id['image'][8:],
+                 douban_id=douban_data['id'],
+                 cover_img_url='https://images.weserv.nl/?url=' + douban_data['image'][8:],
                  date=date)
             if format == 'epub':
                 b.epub_download_url = d['url']
