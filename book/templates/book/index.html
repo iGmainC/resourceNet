@@ -18,15 +18,14 @@
             <li><a href="#">content</a></li>
         </ul>
     </nav>
-    <h1>{{informatiom}}</h1>
     {% if information %}
     {% for i in information %}
     <div class="inf_div">
         <a href="">
-            <img src="{{i.封面链接}}" alt="Alternate Text" />
+            <img src="{{i.cover_img_url}}" alt="Alternate Text" />
             <div class="inf_text">
-                <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.书名 }}</h2>
-                <p>{{i.简介}}</p>
+                <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.book_name }}</h2>
+                <p>{{i.brief}}</p>
             </div>
         </a>
         <div class="inf_link">

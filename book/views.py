@@ -24,7 +24,7 @@ def get_book_data(book_name):
 
 # Create your views here.
 def index(request):
-    a = Book.objects.all().order_by('id')
+    a = Book.objects.all()
     print(a)
     return render(request,'book/index.html',{'information':a})
 

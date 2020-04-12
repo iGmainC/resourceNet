@@ -9,7 +9,7 @@ class Book(models.Model):
     file_idm = CharField(max_length=100,null=True,blank=True)
     douban_id = CharField(max_length=115,null=True,blank=True)
     cover_img_url = CharField(max_length=300,null = True,verbose_name='封面链接')
-    brief = CharField(max_length=1000,null = True,verbose_name='简介')
+    brief = CharField(max_length=1000,default="暂无",null = True,verbose_name='简介')
     epub_download_url = CharField(max_length=300,null=True,blank=True)
     mobi_download_url = CharField(max_length=300,null=True,blank=True)
     pdf_download_url = CharField(max_length=300,null=True,blank=True)
