@@ -7,6 +7,7 @@ from django.http import Http404
 import requests
 import json
 import re
+from pprint import pprint
 
 #从豆瓣获取图书信息
 def get_book_data(book_name):
@@ -24,9 +25,14 @@ def get_book_data(book_name):
 
 # Create your views here.
 def index(request):
-    a = Book.objects.all()
+    a = Book.objects.all().order_by('-date')
     print(a)
     return render(request,'book/index.html',{'information':a})
+
+def detail(request,id):
+    b = Book.objects.get(douban_id=id)
+    print(b)
+    return render(request,'book/detail.html',{'information':b})
 
 @csrf_exempt
 def postbox(request):

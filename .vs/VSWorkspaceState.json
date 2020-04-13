@@ -4,7 +4,6 @@
     "\\book",
     "\\book\\static",
     "\\book\\static\\book",
-    "\\book\\static\\book\\css",
     "\\book\\static\\book\\images",
     "\\book\\templates",
     "\\book\\templates\\book",
@@ -13,6 +12,6 @@
     "\\movie\\static\\movie",
     "\\movie\\static\\movie\\css"
   ],
-  "SelectedNode": "\\book\\admin.py",
+  "SelectedNode": "\\book\\templates\\book\\detail.html",
   "PreviewInSolutionExplorer": false
 }

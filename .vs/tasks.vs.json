@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "任务-detail",
+      "appliesTo": "book/templates/book/detail.html",
+      "type": "launch"
+    }
+  ]
+}

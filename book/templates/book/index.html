@@ -21,7 +21,7 @@
     {% if information %}
     {% for i in information %}
     <div class="inf_div">
-        <a href="">
+        <a href="{% url 'detail' id=i.douban_id %}">
             <img src="{{i.cover_img_url}}" alt="Alternate Text" />
             <div class="inf_text">
                 <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.book_name }}</h2>
