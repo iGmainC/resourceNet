@@ -1,73 +1,59 @@
-﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link href="/static/book/css/main.css" rel="stylesheet" />
-    <link href="/static/book/css/all.min.css" rel="stylesheet" />
-</head>
-<body>
+﻿{% extends 'book/mother_page.html' %}
+{% block head  %}
+{% endblock %}
+{% block title  %}
+书粥
+    {% endblock %}
+{% block page_main  %}
     {% if information %}
-    <nav class="nav">
-        <img src="/static/book/images/logo.png" class="logo" />
-        <ul>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-        </ul>
-    </nav>
-    <div class="detail_div">
-        <img src="{{ information.cover_img_url }}" alt="Alternate Text" />
-        <div class="detail_text">
-            <h1><i class="fa fa-book-open" aria-hidden="true"></i> {{ information.book_name }}</h1>
-            <p>{{ information.brief }}</p>
-            <table>
-                <tr>
-                    <td>Epub</td>
-                    <td>
-                        {% if information.epub_flag == True  %}
-                        <a href="{{ information.epub_download_url }}">下载链接</a>
-                        {% elif information.epub_flag != True %}
-                        <span>暂无</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mobi</td>
-                    <td>
-                        {% if information.mobi_flag == True  %}
-                        <a href="{{ information.mobi_download_url }}">下载链接</a>
-                        {% elif information.epub_flag != True %}
-                        <span>暂无</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Azw3</td>
-                    <td>
-                        {% if information.azw3_flag == True  %}
-                        <a href="{{ information.azw3_download_url }}">下载链接</a>
-                        {% elif information.epub_flag != True %}
-                        <span>暂无</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>pdf</td>
-                    <td>
-                        {% if information.pdf_flag == True  %}
-                        <a href="{{ information.pdf_download_url }}">下载链接</a>
-                        {% elif information.epub_flag != True %}
-                        <span>暂无</span>
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-        </div>
+<div class="detail_div">
+    <img src="{{ information.cover_img_url }}" alt="Alternate Text" />
+    <div class="detail_text">
+        <h1><i class="fa fa-book-open" aria-hidden="true"></i> {{ information.book_name }}</h1>
+        <p>{{ information.brief }}</p>
+        <table class="custom_tb">
+            <tr>
+                <td>Epub</td>
+                <td>
+                    {% if information.epub_flag == True  %}
+                    <a href="{{ information.epub_download_url }}">下载链接</a>
+                    {% else %}
+                    <span>暂无</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Mobi</td>
+                <td>
+                    {% if information.mobi_flag == True  %}
+                    <a href="{{ information.mobi_download_url }}">下载链接</a>
+                    {% else %}
+                    <span>暂无</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Azw3</td>
+                <td>
+                    {% if information.azw3_flag == True  %}
+                    <a href="{{ information.azw3_download_url }}">下载链接</a>
+                    {% else %}
+                    <span>暂无</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>PDF</td>
+                <td>
+                    {% if information.pdf_flag == True  %}
+                    <a href="{{ information.pdf_download_url }}">下载链接</a>
+                    {% else %}
+                    <span>暂无</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </div>
+</div>
     {% endif %}
-</body>
-</html>
+{% endblock %}

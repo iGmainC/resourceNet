@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="{% static 'book/images/title_logo.ico' %}" type="image/x-icon" />
+    <title>
+        {% block title  %}
+        {% endblock %}
+    </title>
+    <link href="{% static 'book/css/all.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'book/css/main.css' %}" rel="stylesheet" />
+    {% block head  %}
+    {% endblock %}
+</head>
+<body>
+    <nav class="n">
+        <img src="{% static 'book/images/logo.png' %}" class="logo" />
+        <ul>
+            <li>
+                <form action="{% url 'index' %}" method="post">
+                    {% csrf_token %}
+                    <input type="search" name="search" placeholder="书名 / 豆瓣ID" />
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+            </li>
+            <li><a href="{% url 'about' %}">版权声明</a></li>
+
+        </ul>
+    </nav>
+
+    {% block page_main  %}
+    {% endblock %}
+</body>
+</html>

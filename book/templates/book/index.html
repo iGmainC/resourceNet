@@ -1,42 +1,49 @@
-﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link href="/static/book/css/main.css" rel="stylesheet" />
-    <link href="/static/book/css/all.min.css" rel="stylesheet" />
-</head>
-<body>
-    <nav class="nav">
-        <img src="/static/book/images/logo.png" class="logo" />
-        <ul>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-            <li><a href="#">content</a></li>
-        </ul>
-    </nav>
-    {% if information %}
+﻿{% extends 'book/mother_page.html' %}
+{% block head  %}
+{% endblock %}
+{% block title  %}
+书粥
+    {% endblock %}
+{% block page_main  %}
+{% if information %}
     {% for i in information %}
-    <div class="inf_div">
-        <a href="{% url 'detail' id=i.douban_id %}">
-            <img src="{{i.cover_img_url}}" alt="Alternate Text" />
-            <div class="inf_text">
-                <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.book_name }}</h2>
-                <p>{{i.brief}}</p>
-            </div>
-        </a>
-        <div class="inf_link">
-            <a href="#"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
+<div class="inf_div">
+    <a href="{% url 'detail' id=i.douban_id %}">
+        <img src="{{i.cover_img_url}}" alt="Alternate Text" />
+        <div class="inf_text">
+            <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.book_name }}</h2>
+            <p>{{i.brief}}</p>
         </div>
+    </a>
+    <div class="inf_link">
+        <span>
+            格式:
+            {% if i.epub_flag == True %}
+            epub,
+            {% elif i.mobi_flag == True %}
+            mobi,
+            {% elif i.pdf_flag == True %}
+            pdf
+            {% elif i.azw3_flag == True %}
+            azw3
+            {% endif %}
+        </span>
+        <a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
     </div>
+</div>
 
     {% endfor %}
+{% else %}
+<h1 class="none">无结果</h1>
+{% endif %}
+<ul class="page_list">
+    {% if now_page > 1 %}
+    <li><a href="{% url 'page' now_page|add:-1 %}">上一页</a></li>
+    {% endif%}
+    {% if now_page < total_page %}
+    <li><a href="{% url 'page' now_page|add:1 %}">下一页</a></li>
     {% endif %}
-    <div class="page_foot">
+</ul>
+<br />
 
-    </div>
-</body>
-</html>
+{% endblock %}

@@ -4,14 +4,11 @@
     "\\book",
     "\\book\\static",
     "\\book\\static\\book",
-    "\\book\\static\\book\\images",
+    "\\book\\static\\book\\css",
     "\\book\\templates",
     "\\book\\templates\\book",
-    "\\movie",
-    "\\movie\\static",
-    "\\movie\\static\\movie",
-    "\\movie\\static\\movie\\css"
+    "\\resourcesNet"
   ],
-  "SelectedNode": "\\book\\templates\\book\\detail.html",
+  "SelectedNode": "\\book\\models.py",
   "PreviewInSolutionExplorer": false
 }

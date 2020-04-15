@@ -8,136 +8,173 @@ import requests
 import json
 import re
 from pprint import pprint
+import logging
+import Levenshtein
+
+
+logging.basicConfig(format = '%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO,filename='book_net.log')
 
 #从豆瓣获取图书信息
 def get_book_data(book_name):
-    headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.45'}
-    #url = 'https://douban.uieee.com/v2/book/search'
-    url = 'https://api.douban.com/v2/book/search'
-    data_pack = {'q':book_name,'count': 1,'start':0,'apikey':'0b2bdeda43b5688921839c8ecb20399b'}
-    data = requests.get(url,headers=headers,params=data_pack)
-    if data.status_code != 200:
-        return None
-    else:
-        data = json.loads(data.text)['books'][0]
-        return data
+    try:
+        headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.45'}
+        #url = 'https://douban.uieee.com/v2/book/search'
+        url = 'https://api.douban.com/v2/book/search'
+        data_pack = {'q':book_name,'count': 1,'start':0,'apikey':'0b2bdeda43b5688921839c8ecb20399b'}
+        data = requests.get(url,headers=headers,params=data_pack)
+        if data.status_code != 200:
+            return False
+        else:
+            data = json.loads(data.text)['books']
+            if data:
+                return data[0]
+            else:
+                return None
+    except:
+        return False
 
+#两个字符串的差距
+def get_equal_rate(str1, str2):
+   return Levenshtein.ratio(str1, str2)
 
+#反爬装饰器
+def block_spider(func):
+    def _block_spider(*args,**kwargs):
+        if "python" in args[0].META["HTTP_USER_AGENT"]:
+            h = HttpResponse("400")
+            h.status_code = 400
+            return h
+        else:
+            return func(*args, **kwargs)
+    return _block_spider
+
+#日志装饰器
+def log_record(func):
+    def _log_record(*args,**kwargs):
+        d = {}
+        d['USER_AGENT'] = args[0].META['HTTP_USER_AGENT']
+        d['PATH_INFO'] = args[0].META['PATH_INFO']
+        d['USER_IP'] = args[0].META['REMOTE_ADDR']
+        logging.info(json.dumps(d,ensure_ascii = False))
+        return func(*args,**kwargs)
+    return _log_record
+
+def is_number(s):
+    try:  # 如果能运行float(s)语句，返回True（字符串s是浮点数）
+        int(s)
+        return True
+    except ValueError:  # ValueError为Python的一种标准异常，表示"传入无效的参数"
+        pass  # 如果引发了ValueError这种异常，不做任何事情（pass：不做任何事情，一般用做占位语句）
+    
+    return False
 # Create your views here.
+@log_record
+@block_spider
 def index(request):
-    a = Book.objects.all().order_by('-date')
-    print(a)
-    return render(request,'book/index.html',{'information':a})
+    if request.method == "GET":
+        a = Book.objects.all()
+        total_page = len(a) // 10 + 1
+        a = a.order_by('-date')[:10]
+    if request.method == "POST":
+        search = request.POST.get('search',0)
+        if is_number(search):
+            a = Book.objects.filter(douban_id = search)
+        else:
+            if ' ' in search:
+                search = search.split(' ')
+                a = Book.objects.all()
+                for s in search:
+                    a = a.filter(book_name__icontains = s)
+            else:
+                a = Book.objects.filter(book_name__icontains = search)
+    return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':1})
 
+@log_record
+@block_spider
 def detail(request,id):
     b = Book.objects.get(douban_id=id)
     print(b)
     return render(request,'book/detail.html',{'information':b})
 
+@log_record
+@block_spider
+def about(request):
+    return render(request,'book/about.html')
+
+@log_record
+@block_spider
+def page(request,page_num):
+    total_page = len(Book.objects.all()) //10 +1
+    a = Book.objects.all().order_by('-date')[(page_num-1)*10:page_num*10]
+    return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':page_num})
+
 @csrf_exempt
 def postbox(request):
     if request.method == "POST":
-        d = json.loads(request.body)
-        pprint(d)
-        d_l = d['name'].split('.')
-        name,format = d_l[0],d_l[1]     #将书名和文件格式分离
-        print(name)
-        douban_data = get_book_data(name)
+        onedrive_data = json.loads(request.body)
+        pprint(onedrive_data)
+        file_name_l = onedrive_data['name'].split('.')
+        file_name,file_format = file_name_l[0],file_name_l[1]     #将书名和文件格式分离
+        douban_data = get_book_data(file_name)
         pprint(douban_data)
+        if douban_data == False:
+            logging.error('豆瓣api错误')
+            h = HttpResponse('豆瓣api错误')
+            h.status_code = 417
+            return h
         if douban_data == None:
-            return HttpResponse('豆瓣数据获取失败')
+            logging.error('找不到这本书：' + file_name)
+            b = Book(book_name = file_name,file_idm=onedrive_data['idm'])
+            if file_format == 'epub':
+                b.epub_download_url = onedrive_data['url']
+                b.epub_flag = True
+            if file_format == 'azw3':
+                b.azw3_download_url = onedrive_data['url']
+                b.azw3_flag = True
+            if file_format == 'pdf':
+                b.pdf_download_url = onedrive_data['url']
+                b.pdf_flag = True
+            if file_format == 'mobi':
+                b.mobi_download_url = onedrive_data['url']
+                b.mobi_flag = True
+            b.cover_img_url = 'http://18.222.57.174/book/static/None_cover.png'
+            b.douban_id = file_name
+            h = HttpResponse('找不到这本书')
+            h.status_code = 417
+            return h
         if Book.objects.filter(douban_id=douban_data['id']):    #用豆瓣id查询数据库
             b = Book.objects.get(douban_id=douban_data['id'])
-            if format == 'epub' and b.epub_flag == False:
-                b.epub_download_url = d['url']
-            if format == 'azw3' and b.azw3_flag == False:
-                b.azw3_download_url = d['url']
-            if format == 'pdf' and b.pdf_flag:
-                b.pdf_download_url = d['url']
-            if format == 'mobi' and b.mobi_flag == False:
-                b.mobi_download_url = d['url']
+            if file_format == 'epub' and b.epub_flag == False:
+                b.epub_download_url = onedrive_data['url']
+            if file_format == 'azw3' and b.azw3_flag == False:
+                b.azw3_download_url = onedrive_data['url']
+            if file_format == 'pdf' and b.pdf_flag:
+                b.pdf_download_url = onedrive_data['url']
+            if file_format == 'mobi' and b.mobi_flag == False:
+                b.mobi_download_url = onedrive_data['url']
         else:
             date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             b = Book(book_name = douban_data['title'],
                      author = douban_data['author'][0],
-                 file_idm=d['idm'],
+                 file_idm=onedrive_data['idm'],
                  douban_id=douban_data['id'],
-                 cover_img_url='https://images.weserv.nl/?url=' + douban_data['image'][8:],
+                 cover_img_url='https://images.weserv.nl/?url=' + douban_data['images']['small'][8:],
                  date=date)
-            if format == 'epub':
-                b.epub_download_url = d['url']
+            if file_format == 'epub':
+                b.epub_download_url = onedrive_data['url']
                 b.epub_flag = True
-            if format == 'azw3':
-                b.azw3_download_url = d['url']
+            if file_format == 'azw3':
+                b.azw3_download_url = onedrive_data['url']
                 b.azw3_flag = True
-            if format == 'pdf':
-                b.pdf_download_url = d['url']
+            if file_format == 'pdf':
+                b.pdf_download_url = onedrive_data['url']
                 b.pdf_flag = True
-            if format == 'mobi':
-                b.mobi_download_url = d['url']
+            if file_format == 'mobi':
+                b.mobi_download_url = onedrive_data['url']
                 b.mobi_flag = True
         b.save()
     return HttpResponse('<h1>404</h1>')
 
-'''
-data = {'alt': 'https://book.douban.com/subject/1012611/',
- 'alt_title': 'The Crowd: A Study of the Popular Mind',
- 'author': ['（法）勒庞'],
- 'author_intro': '古斯塔夫・勒庞 Gustave Le Bon(1841-1931) '
-                 '法国著名社会心理学家。他自1894年始，写下一系列社会心理学著作，以本书最为著名，被 '
-                 '翻译成近二十种语言，至今仍在国际学术界有广泛影响。\n'
-                 '\n',
- 'binding': '平装',
- 'catalog': '民主直通独裁的心理机制\n'
-            '勒庞《乌合之众》的得与失\n'
-            '作者前言\n'
-            '导言：群体的时代\n'
-            '第一卷 群体心理\n'
-            '1．群体的一般特征\n'
-            '2．群体的感情和道德观\n'
-            '3．群体的观念、推理与想像力\n'
-            '4．群体信仰所采取的宗教形式\n'
-            '第二卷 群体的意见与信念\n'
-            '1．群体的意见和信念中的间接因素\n'
-            '2．群体意见的直接因素\n'
-            '3．群体领袖及其说服的手法\n'
-            '4．群体的信息和意见的变化范围\n'
-            '第三卷 不同群体的分类及其特点\n'
-            '1．群体的分类\n'
-            '2．被称为犯罪群体的群体\n'
-            '3．刑事案件的陪审团\n'
-            '4．选民群体\n'
-            '5．议会\n'
-            '译名对照表',
- 'id': '1012611',
- 'image': 'https://img3.doubanio.com/view/subject/m/public/s1988393.jpg',
- 'images': {'large': 'https://img3.doubanio.com/view/subject/l/public/s1988393.jpg',
-            'medium': 'https://img3.doubanio.com/view/subject/m/public/s1988393.jpg',
-            'small': 'https://img3.doubanio.com/view/subject/s/public/s1988393.jpg'},
- 'isbn10': '7801093666',
- 'isbn13': '9787801093660',
- 'origin_title': 'The Crowd: A Study of the Popular Mind',
- 'pages': '183',
- 'price': '16.00元',
- 'pubdate': '2011-5-1',
- 'publisher': '中央编译出版社',
- 'rating': {'average': '8.2', 'max': 10, 'min': 0, 'numRaters': 93933},
- 'subtitle': '大众心理研究',
- 'summary': '古斯塔夫・勒庞 Gustave Le Bon(1841-1931) '
-            '法国著名社会心理学家。他自1894年始，写下一系列社会心理学著作，以本书最为著名；在社会心理学领域已有的著作中 ，最有影响的，也是这本并不很厚的《乌合之众》。古斯塔夫・勒庞在他在书中极为精致地描述了集体心态，对人们理解集体行为的作用以及对社会心理学的思考发挥了巨大影响。《乌合之众--大众心理研究》在西方已印至第29版，其观点新颖，语言生动，是群体行为的研究者不可不读的佳作。',
- 'tags': [{'count': 22613, 'name': '心理学', 'title': '心理学'},
-          {'count': 21199, 'name': '社会心理学', 'title': '社会心理学'},
-          {'count': 17178, 'name': '群体心理学', 'title': '群体心理学'},
-          {'count': 13517, 'name': '乌合之众', 'title': '乌合之众'},
-          {'count': 13093, 'name': '大众心理', 'title': '大众心理'},
-          {'count': 10360, 'name': '社会学', 'title': '社会学'},
-          {'count': 7178, 'name': '心理', 'title': '心理'},
-          {'count': 5938, 'name': '社会', 'title': '社会'}],
- 'title': '乌合之众',
- 'translator': ['冯克利'],
- 'url': 'https://api.douban.com/v2/book/1012611'}
-'''
-
 
 def page_not_found(request, exception):
-    return HttpResponse('404')
+    return render(request,'book/404.html',status=404)

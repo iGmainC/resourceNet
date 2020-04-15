@@ -20,7 +20,7 @@ import book
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('movie/',include("movie.urls")),
-    path('book/',include("book.urls")),
+    #path('movie/',include("movie.urls")),
+    path('',include("book.urls")),
 ]
 handler404 = book.views.page_not_found
