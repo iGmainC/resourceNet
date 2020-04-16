@@ -24,6 +24,20 @@ class Book(models.Model):
     def __str__(self):
         return self.book_name
 
+    def saveUrl(self,file_format, url):
+        if file_format == 'epub' and self.epub_flag == False:
+            self.epub_download_url = url
+            self.epub_flag = True
+        if file_format == 'azw3' and self.azw3_flag == False:
+            self.azw3_download_url = url
+            self.azw3_flag = True
+        if file_format == 'mobi' and self.mobi_flag == False:
+            self.mobi_download_url = url
+            self.mobi_flag = True
+        if file_format == 'pdf' and self.pdf_flag == False:
+            self.pdf_download_url = url
+            self.pdf_flag = True
+
     def toDict(self):
         return {
         "id":self.id,

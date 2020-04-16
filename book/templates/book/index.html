@@ -20,11 +20,14 @@
             格式:
             {% if i.epub_flag == True %}
             epub,
-            {% elif i.mobi_flag == True %}
+            {% endif %}
+            {% if i.mobi_flag == True %}
             mobi,
-            {% elif i.pdf_flag == True %}
-            pdf
-            {% elif i.azw3_flag == True %}
+            {% endif %}
+            {% if i.pdf_flag == True %}
+            pdf,
+            {% endif %}
+            {% if i.azw3_flag == True %}
             azw3
             {% endif %}
         </span>
