@@ -1879,8 +1879,205 @@ Traceback (most recent call last):
     return func(*args,**kwargs)
   File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 48, in _block_spider
     return func(*args, **kwargs)
+<<<<<<< HEAD
   File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 104, in detail
     return render(request,'book/detail.html',{'information':b})
+=======
+  File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 110, in page
+    return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':page_num})
+NameError: name 'total_page' is not defined
+2020-04-16 03:16:34,703:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 03:17:44,251:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 03:17:47,992:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:18:35,804:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 03:18:37,589:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:19:49,310:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:20:33,266:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 03:20:41,945:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:21:38,350:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 03:21:42,940:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:23:16,563:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:23:44,270:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:27:50,430:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:28:08,809:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:28:33,828:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:28:44,292:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:28:58,428:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:29:20,440:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:29:32,774:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:29:57,929:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:29:59,424:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:30:01,675:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:30:22,027:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:30:23,875:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:32:35,570:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:33:22,381:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:33:45,510:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:36:20,212:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/page=2/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:36:29,666:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:36:36,052:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/book/about/", "USER_IP": "192.168.137.71"}
+2020-04-16 03:39:49,220:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:40:05,790:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:50:11,657:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:50:56,782:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:50:58,212:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:51:40,416:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:52:15,684:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:54:34,722:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:56:57,529:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/book/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 03:57:58,993:WARNING:Not Found: /
+2020-04-16 04:03:45,033:INFO:C:\Users\guo19\source\repos\resourcesNet\resourcesNet\urls.py changed, reloading.
+2020-04-16 04:03:54,884:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:04:33,763:WARNING:Not Found: /asdf
+2020-04-16 04:04:53,471:INFO:C:\Users\guo19\source\repos\resourcesNet\resourcesNet\settings.py changed, reloading.
+2020-04-16 04:06:57,611:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 04:09:57,262:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 04:10:03,986:WARNING:Not Found: /asdf
+2020-04-16 04:15:37,642:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 04:16:02,071:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 04:17:35,974:WARNING:Not Found: /asdf
+2020-04-16 04:21:38,937:WARNING:Not Found: /asdf
+2020-04-16 04:22:57,342:WARNING:Not Found: /asdf
+2020-04-16 04:22:58,076:WARNING:Not Found: /asdf
+2020-04-16 04:23:23,462:WARNING:Not Found: /asdf
+2020-04-16 04:23:33,118:WARNING:Not Found: /asdf
+2020-04-16 04:23:59,251:WARNING:Not Found: /asdf
+2020-04-16 04:25:34,841:WARNING:Not Found: /asdf
+2020-04-16 04:25:35,911:WARNING:Not Found: /asdf
+2020-04-16 04:26:56,675:WARNING:Not Found: /asdf
+2020-04-16 04:27:47,043:WARNING:Not Found: /asdf
+2020-04-16 04:27:49,409:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:27:52,963:WARNING:Not Found: /asdf
+2020-04-16 04:29:16,860:INFO:{"USER_AGENT": "Dalvik/2.1.0 (Linux; U; Android 10; MI 8 Lite MIUI/20.3.26)", "PATH_INFO": "/", "USER_IP": "192.168.137.187"}
+2020-04-16 04:33:41,476:WARNING:Not Found: /asdf
+2020-04-16 04:37:13,360:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:47:12,118:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:47:39,160:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:47:39,953:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:47:40,758:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:47:41,270:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:47:54,990:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:47:55,865:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:06,371:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:07,060:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:18,601:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:19,611:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:20,789:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:21,299:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:21,707:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:21,906:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:46,242:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:46,902:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:49:58,877:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:50:53,021:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:51:06,458:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:51:14,296:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1770782/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:54:26,315:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:54:30,932:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 04:57:22,066:WARNING:Not Found: /book/about/
+2020-04-16 04:57:26,559:WARNING:Not Found: /book/about/
+2020-04-16 04:57:35,673:WARNING:Not Found: /book/
+2020-04-16 04:57:37,872:WARNING:Not Found: /book/
+2020-04-16 04:57:47,327:WARNING:Not Found: /book/
+2020-04-16 04:57:47,970:WARNING:Not Found: /favicon.ico
+2020-04-16 04:57:54,307:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/", "USER_IP": "192.168.137.71"}
+2020-04-16 04:58:03,087:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 04:58:34,584:INFO:C:\Users\guo19\source\repos\resourcesNet\resourcesNet\settings.py changed, reloading.
+2020-04-16 04:58:56,501:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:00:45,243:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:00:58,305:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:01:13,755:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:01:30,364:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:02:30,950:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:02:58,501:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:03:04,586:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:03:14,809:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:03:19,941:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:03:36,233:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:03:48,483:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:04:25,237:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:04:38,583:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:04:48,668:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:05:48,251:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:06:06,580:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:06:08,321:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:06:24,200:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:06:37,321:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/detail/1147193/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:06:53,898:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/detail/1147193/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:08:11,243:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:08:49,291:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:08:58,704:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:10:09,778:INFO:{"USER_AGENT": "Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+", "PATH_INFO": "/", "USER_IP": "192.168.137.71"}
+2020-04-16 05:11:44,904:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:12:18,869:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 05:12:31,192:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/about/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:03:42,589:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 13:03:56,465:ERROR:Invalid HTTP_HOST header: '127.0.0.1'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2020-04-16 13:03:56,563:WARNING:Bad Request: /
+2020-04-16 13:03:56,826:ERROR:Invalid HTTP_HOST header: '127.0.0.1'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2020-04-16 13:03:56,838:WARNING:Bad Request: /favicon.ico
+2020-04-16 13:04:25,852:INFO:C:\Users\guo19\source\repos\resourcesNet\resourcesNet\settings.py changed, reloading.
+2020-04-16 13:04:28,761:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:04:42,157:WARNING:Not Found: /postbox/
+2020-04-16 13:04:42,281:WARNING:Not Found: /favicon.ico
+2020-04-16 13:09:37,498:ERROR:Internal Server Error: /postbox/
+Traceback (most recent call last):
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 118, in postbox
+    b = Book.objects.get(book_name = file_name)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\models\query.py", line 417, in get
+    self.model._meta.object_name
+book.models.Book.DoesNotExist: Book matching query does not exist.
+2020-04-16 13:14:37,521:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:16:58,140:ERROR:Internal Server Error: /postbox/
+Traceback (most recent call last):
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 132, in postbox
+    date=date)
+NameError: name 'date' is not defined
+2020-04-16 13:21:01,195:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
+2020-04-16 13:21:20,411:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:21:41,945:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:22:17,803:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:23:26,210:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:23:26,290:ERROR:Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 469, in parse
+    compile_func = self.tags[command]
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 59, in _log_record
+    return func(*args,**kwargs)
+  File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 48, in _block_spider
+    return func(*args, **kwargs)
+  File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 90, in index
+    return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':1})
+>>>>>>> 41a51d3fc22d437fc08478f92ab1190f2b3c9d79
   File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\shortcuts.py", line 19, in render
     content = loader.render_to_string(template_name, context, request, using=using)
   File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\loader.py", line 61, in render_to_string
@@ -1909,6 +2106,7 @@ Traceback (most recent call last):
     raise self.error(token, e)
   File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 475, in parse
     compiled_result = compile_func(self, token)
+<<<<<<< HEAD
   File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\defaulttags.py", line 1078, in load
     lib = find_library(parser, name)
   File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\defaulttags.py", line 1025, in find_library
@@ -1947,3 +2145,44 @@ tz
 
 2020-04-19 13:59:55,160:INFO:C:\Users\guo19\source\repos\resourcesNet\book\views.py changed, reloading.
 2020-04-19 14:01:17,771:WARNING:Not Found: /favicon.ico
+=======
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\loader_tags.py", line 209, in do_block
+    nodelist = parser.parse(('endblock',))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 477, in parse
+    raise self.error(token, e)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\defaulttags.py", line 952, in do_if
+    nodelist = parser.parse(('elif', 'else', 'endif'))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 477, in parse
+    raise self.error(token, e)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\defaulttags.py", line 811, in do_for
+    nodelist_loop = parser.parse(('empty', 'endfor',))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 477, in parse
+    raise self.error(token, e)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\defaulttags.py", line 952, in do_if
+    nodelist = parser.parse(('elif', 'else', 'endif'))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 477, in parse
+    raise self.error(token, e)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\defaulttags.py", line 952, in do_if
+    nodelist = parser.parse(('elif', 'else', 'endif'))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 477, in parse
+    raise self.error(token, e)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\defaulttags.py", line 952, in do_if
+    nodelist = parser.parse(('elif', 'else', 'endif'))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 471, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\template\base.py", line 527, in invalid_block_tag
+    get_text_list(["'%s'" % p for p in parse_until], 'or'),
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 35: 'endfor', expected 'elif'£¬'else' or 'endif'. Did you forget to register or load this tag?
+2020-04-16 13:23:46,514:INFO:{"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.53", "PATH_INFO": "/", "USER_IP": "127.0.0.1"}
+2020-04-16 13:42:21,260:INFO:C:\Users\guo19\source\repos\resourcesNet\book\models.py changed, reloading.
+>>>>>>> 41a51d3fc22d437fc08478f92ab1190f2b3c9d79

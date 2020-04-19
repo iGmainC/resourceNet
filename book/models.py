@@ -95,6 +95,7 @@ class Tag(models.Model):
         verbose_name = "标签"
         verbose_name_plural = "标签"
     def __str__(self):
+<<<<<<< HEAD
         return self.name
 
 class Translator(models.Model):
@@ -174,3 +175,39 @@ class Publisher(models.Model):
 #    def toJson(self):
 #        return json.dumps(self.toDict(),ensure_ascii=False)
 
+=======
+        return self.book_name
+
+    def saveUrl(self,file_format, url):
+        if file_format == 'epub' and self.epub_flag == False:
+            self.epub_download_url = url
+            self.epub_flag = True
+        if file_format == 'azw3' and self.azw3_flag == False:
+            self.azw3_download_url = url
+            self.azw3_flag = True
+        if file_format == 'mobi' and self.mobi_flag == False:
+            self.mobi_download_url = url
+            self.mobi_flag = True
+        if file_format == 'pdf' and self.pdf_flag == False:
+            self.pdf_download_url = url
+            self.pdf_flag = True
+
+    def toDict(self):
+        return {
+        "id":self.id,
+        "name":self.book_name,
+        "author":self.author,
+        "file_idm":self.file_idm,
+        "douban_id":self.douban_id,
+        "cover_img_url":self.cover_img_url,
+        "cover_img_large_url":self.cover_img_large_url,
+        "brief":self.brief,
+        "epub_download_url":self.epub_download_url,
+        "mobi_download_url":self.mobi_download_url,
+        "pdf_download_url":self.pdf_download_url,
+        "azw3_download_url":self.azw3_download_url,
+        "date":self.date}
+
+    def toJson(self):
+        return json.dumps(self.toDict(),ensure_ascii=False)
+>>>>>>> 41a51d3fc22d437fc08478f92ab1190f2b3c9d79
