@@ -41,19 +41,19 @@ class Book(models.Model):
 
     def save_url(self,url,format):
         if format == 'epub' and self.epub_flag == False:
-            self.epub_download = url
+            self.epub_download = url + '?download=1'
             self.epub_flag = True
         if format == 'azw3' and self.azw3_flag == False:
-            self.azw3_download = url
+            self.azw3_download = url + '?download=1'
             self.azw3_flag = True
         if format == 'mobi' and self.mobi_flag == False:
-            self.mobi_download = url
+            self.mobi_download = url + '?download=1'
             self.mobi_flag = True
         if format == 'pdf' and self.pdf_flag == False:
-            self.pdf_download = url
+            self.pdf_download = url + '?download=1'
             self.pdf_flag = True
         if format == 'kfx' and self.kfx_flag == False:
-            self.kfx_download = url
+            self.kfx_download = url + '?download=1'
             self.kfx_flag = True
 
     def __str__(self):

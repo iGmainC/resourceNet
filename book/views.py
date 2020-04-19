@@ -90,9 +90,9 @@ def index(request):
                 search = search.split(' ')
                 a = Book.objects.all()
                 for s in search:
-                    a = a.filter(book_name__icontains = s)
+                    a = a.filter(title__icontains = s)
             else:
-                a = Book.objects.filter(book_name__icontains = search)
+                a = Book.objects.filter(title__icontains = search)
             total_page = len(a) // 10 + 1
     return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':1})
 
@@ -162,7 +162,6 @@ def postbox(request):
         onedrive_data = json.loads(request.body)
         file_name = onedrive_data['name'].split('.')
         file_name,file_format = file_name[0],file_name[1]
-        print(Book.objects.filter(file_name=file_name))
         if Book.objects.filter(file_name=file_name):    #如果存在这本书
             b = Book.objects.get(file_name=file_name)
             b.save_url(onedrive_data['url'],file_format)
@@ -170,8 +169,9 @@ def postbox(request):
         else:                                           #如果不存在这本书
             douban_data = get_book_data(file_name)
             pprint(douban_data)
+            b = Book()
+            b.date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             if douban_data:
-                b = Book()
                 b.file_name = file_name
                 b.title = douban_data['title']
                 if douban_data['subtitle']:
@@ -256,16 +256,9 @@ def postbox(request):
                         else:
                             b.translator.add(Translator.objects.get(name=tr))
                 b.save_url(onedrive_data['url'],file_format)
-
             else:
-                if not Book.objects.filter(file_name=file_name):
-                    b = Book()
-                    b.file_name = b.title = file_name
-                    b.save_url(onedrive_data['url'],file_format)
-                else:
-                    b = Book.objects.get(file_name=file_name)
-                    b.save_url(onedrive_data['url'],file_format)
-        b.date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                b.file_name = b.title = file_name
+                b.save_url(onedrive_data['url'],file_format)
         b.save()
         return render(request,'book/404.html')
     else:
