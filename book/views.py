@@ -179,8 +179,8 @@ def postbox(request):
                 if douban_data['alt_title']:
                     b.english_title = douban_data['alt_title']
                 b.save()        #为添加作者准备
-                if douban_data.get('author'):       #如果作者不为空
-                    author = douban_data.get('author')
+                author = douban_data.get('author')
+                if author:       #如果作者不为空
                     if len(author) == 1:
                         a_inf = douban_data['author_intro']
                     else:
@@ -207,7 +207,6 @@ def postbox(request):
                             a = Author.objects.get(name = l['name'])
                             a.book.add(b)
                         b.author.add(a)
-                pprint(douban_data.get('price'))
                 if douban_data.get('price'):
                     b.price = douban_data['price']
                 b.cover = 'https://images.weserv.nl/?url=' + douban_data['images']['small'][8:]

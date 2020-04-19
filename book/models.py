@@ -3,7 +3,6 @@ from django.db.models import CharField, DateTimeField, IntegerField, BooleanFiel
 import json
 
 class Book(models.Model):
-    #id = IntegerField(primary_key=True,blank=True)
     file_name = CharField(max_length=100,null=True,blank=True,verbose_name='文件名')
     title = CharField(max_length=100,null=True,blank=True,verbose_name='书名')
     subtitle = CharField(max_length=100,null=True,blank=True,default = '',verbose_name='副标题')
@@ -65,7 +64,6 @@ class Book(models.Model):
 
 
 class Author(models.Model):
-    #id = IntegerField(primary_key=True,blank=True)
     name = CharField(max_length=30,default = '不详',verbose_name='作者姓名')
     information = TextField(default = '暂无',verbose_name='作者介绍')
     book = ManyToManyField(Book,blank=True,related_name='author_book',verbose_name='作者的书')
@@ -77,7 +75,6 @@ class Author(models.Model):
         return self.name
 
 class Series(models.Model):
-    #id = IntegerField(primary_key=True,blank=True)
     name = CharField(max_length=50,verbose_name='系列名')
     book = ManyToManyField(Book,blank=True,related_name='series_book',verbose_name='系列的书')
     class Meta:
@@ -87,7 +84,6 @@ class Series(models.Model):
         return self.name
 
 class Tag(models.Model):
-    #id = IntegerField(primary_key=True,blank=True)
     name = CharField(max_length=30,verbose_name='标签名')
     title = CharField(max_length=30,verbose_name='标签标题')
     book = ManyToManyField(Book,blank=True,related_name='tag_book',verbose_name='类型的书')
@@ -95,11 +91,9 @@ class Tag(models.Model):
         verbose_name = "标签"
         verbose_name_plural = "标签"
     def __str__(self):
-<<<<<<< HEAD
         return self.name
 
 class Translator(models.Model):
-    #id = IntegerField(primary_key=True,blank=True)
     name = CharField(max_length=30,verbose_name='译者姓名')
     book = ManyToManyField(Book,blank=True,related_name='translator_book',verbose_name='译者的书')
     class Meta:
@@ -109,7 +103,6 @@ class Translator(models.Model):
         return self.name
 
 class Publisher(models.Model):
-    #id = IntegerField(primary_key=True,blank=True)
     name = CharField(max_length=30,verbose_name='出版社名')
     book = ManyToManyField(Book,blank=True,related_name='publisher_book',verbose_name='出版社的书')
     class Meta:
@@ -175,39 +168,3 @@ class Publisher(models.Model):
 #    def toJson(self):
 #        return json.dumps(self.toDict(),ensure_ascii=False)
 
-=======
-        return self.book_name
-
-    def saveUrl(self,file_format, url):
-        if file_format == 'epub' and self.epub_flag == False:
-            self.epub_download_url = url
-            self.epub_flag = True
-        if file_format == 'azw3' and self.azw3_flag == False:
-            self.azw3_download_url = url
-            self.azw3_flag = True
-        if file_format == 'mobi' and self.mobi_flag == False:
-            self.mobi_download_url = url
-            self.mobi_flag = True
-        if file_format == 'pdf' and self.pdf_flag == False:
-            self.pdf_download_url = url
-            self.pdf_flag = True
-
-    def toDict(self):
-        return {
-        "id":self.id,
-        "name":self.book_name,
-        "author":self.author,
-        "file_idm":self.file_idm,
-        "douban_id":self.douban_id,
-        "cover_img_url":self.cover_img_url,
-        "cover_img_large_url":self.cover_img_large_url,
-        "brief":self.brief,
-        "epub_download_url":self.epub_download_url,
-        "mobi_download_url":self.mobi_download_url,
-        "pdf_download_url":self.pdf_download_url,
-        "azw3_download_url":self.azw3_download_url,
-        "date":self.date}
-
-    def toJson(self):
-        return json.dumps(self.toDict(),ensure_ascii=False)
->>>>>>> 41a51d3fc22d437fc08478f92ab1190f2b3c9d79

@@ -1,0 +1,46 @@
+2020-04-19 14:18:05,336:ERROR:Internal Server Error: /postbox/
+Traceback (most recent call last):
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\sqlite3\base.py", line 396, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.OperationalError: no such table: book_book
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\guo19\source\repos\resourcesNet\book\views.py", line 165, in postbox
+    print(Book.objects.filter(file_name=file_name))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\models\query.py", line 252, in __repr__
+    data = list(self[:REPR_OUTPUT_SIZE + 1])
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\models\query.py", line 276, in __iter__
+    self._fetch_all()
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\models\query.py", line 1261, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\models\query.py", line 57, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\models\sql\compiler.py", line 1151, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\site-packages\django\db\backends\sqlite3\base.py", line 396, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.OperationalError: no such table: book_book
