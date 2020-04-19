@@ -23,7 +23,7 @@
                 <td>Epub</td>
                 <td>
                     {% if information.epub_flag == True  %}
-                    <a href="{{ information.epub_download_url }}">下载链接</a>
+                    <a href="{{ information.epub_download }}">下载链接</a>
                     {% else %}
                     <span>暂无</span>
                     {% endif %}
@@ -33,7 +33,7 @@
                 <td>Mobi</td>
                 <td>
                     {% if information.mobi_flag == True  %}
-                    <a href="{{ information.mobi_download_url }}">下载链接</a>
+                    <a href="{{ information.mobi_download }}">下载链接</a>
                     {% else %}
                     <span>暂无</span>
                     {% endif %}
@@ -43,7 +43,7 @@
                 <td>Azw3</td>
                 <td>
                     {% if information.azw3_flag == True  %}
-                    <a href="{{ information.azw3_download_url }}">下载链接</a>
+                    <a href="{{ information.azw3_download }}">下载链接</a>
                     {% else %}
                     <span>暂无</span>
                     {% endif %}
@@ -53,7 +53,7 @@
                 <td>PDF</td>
                 <td>
                     {% if information.pdf_flag == True  %}
-                    <a href="{{ information.pdf_download_url }}">下载链接</a>
+                    <a href="{{ information.pdf_download }}">下载链接</a>
                     {% else %}
                     <span>暂无</span>
                     {% endif %}

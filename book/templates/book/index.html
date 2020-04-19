@@ -16,7 +16,6 @@
         </div>
     </a>
     <div class="inf_link">
-<<<<<<< HEAD
 	<span>
 	        格式:
     		{% if i.epub_flag == True %}
@@ -33,7 +32,6 @@
 		{% endif %}
 	</span>
 		<a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
-=======
         <span>
             格式:
             {% if i.epub_flag == True %}
@@ -49,8 +47,7 @@
             azw3
             {% endif %}
         </span>
-        <a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
->>>>>>> 41a51d3fc22d437fc08478f92ab1190f2b3c9d79
+        <a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a> 
     </div>
 </div>
 
