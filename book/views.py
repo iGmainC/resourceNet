@@ -159,9 +159,7 @@ def page(request,page_num):
 @csrf_exempt
 def postbox(request):
     if request.method == "POST":
-        date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         onedrive_data = json.loads(request.body)
-<<<<<<< HEAD
         file_name = onedrive_data['name'].split('.')
         file_name,file_format = file_name[0],file_name[1]
         print(Book.objects.filter(file_name=file_name))
@@ -259,39 +257,6 @@ def postbox(request):
                         else:
                             b.translator.add(Translator.objects.get(name=tr))
                 b.save_url(onedrive_data['url'],file_format)
-=======
-        pprint(onedrive_data)
-        file_name_l = onedrive_data['name'].split('.')
-        file_name,file_format = file_name_l[0],file_name_l[1]     #将书名和文件格式分离
-        b = Book.objects.filter(book_name = file_name)
-        if b:       #如果数据库中存在
-            b = Book.objects.get(book_name = file_name)
-            b.saveUrl(file_format,onedrive_data['url'])
-        else:
-            b = Book()
-            douban_data = get_book_data(file_name)
-            if douban_data:
-                b = Book(book_name = douban_data['title'],
-                     author = douban_data['author'][0],
-                 file_idm=onedrive_data['idm'],
-                 douban_id=douban_data['id'],
-                 cover_img_url='https://images.weserv.nl/?url=' + douban_data['images']['small'][8:],
-                 date=date)
-                b.saveUrl(file_format,onedrive_data['url'])
-            else:
-                b.book_name = file_name
-                b.file_idm = onedrive_data['idm']
-                b.saveUrl(file_format,onedrive_data['url'])
-                b.date = date
-                if douban_data == None:
-                    logging.error('找不到这本书：' + file_name)
-                if douban_data == False:
-                    logging.error('豆瓣api错误')
-        b.save()
-        return render(request,'book/404.html')
-    else:
-        return render(request,'book/404.html',status = 404)
->>>>>>> 41a51d3fc22d437fc08478f92ab1190f2b3c9d79
 
             else:
                 if not Book.objects.filter(file_name=file_name):
