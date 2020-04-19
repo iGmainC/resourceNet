@@ -6,29 +6,32 @@
     {% endblock %}
 {% block page_main  %}
 {% if information %}
-    {% for i in information %}
+{% for i in information %}
 <div class="inf_div">
     <a href="{% url 'detail' id=i.douban_id %}">
-        <img src="{{i.cover_img_url}}" alt="Alternate Text" />
+        <img src="{{i.cover}}" alt="Alternate Text" />
         <div class="inf_text">
-            <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.book_name }}</h2>
-            <p>{{i.brief}}</p>
+            <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.file_name }}</h2>
+            <p>{{i.summary}}</p>
         </div>
     </a>
     <div class="inf_link">
-        <span>
-            格式:
-            {% if i.epub_flag == True %}
-            epub,
-            {% elif i.mobi_flag == True %}
-            mobi,
-            {% elif i.pdf_flag == True %}
-            pdf
-            {% elif i.azw3_flag == True %}
-            azw3
-            {% endif %}
-        </span>
-        <a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
+	<span>
+	        格式:
+    		{% if i.epub_flag == True %}
+		epub,
+	        {% endif %}
+                {% if i.mobi_flag == True %}
+		mobi,
+	        {% endif %}
+		{% if i.pdf_flag == True %}
+		pdf,
+		{% endif %}
+		{% if i.azw3_flag == True %}
+		azw3
+		{% endif %}
+	</span>
+		<a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
     </div>
 </div>
 

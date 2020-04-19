@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import time
 from django.views.decorators.csrf import csrf_exempt
-from book.models import Book
+from book.models import Book,Author,Series,Tag,Translator,Publisher
 from django.http import Http404
 import requests
 import json
@@ -54,8 +54,13 @@ def log_record(func):
         d = {}
         d['USER_AGENT'] = args[0].META['HTTP_USER_AGENT']
         d['PATH_INFO'] = args[0].META['PATH_INFO']
-        d['USER_IP'] = args[0].META['REMOTE_ADDR']
-        logging.info(json.dumps(d,ensure_ascii = False))
+        http_forwarded_for = args[0].META.get('HTTP_X_FORWARDED_FOR')
+        d['REMOTE_HOST'] = args[0].META.get('REMOTE_HOST')
+        if http_forwarded_for:
+            d['USER_IP'] = http_forwarded_for.split(',')[0]
+        else:
+            d['USER_IP'] = args[0].META['REMOTE_ADDR']
+        logging.info(str(json.dumps(d,ensure_ascii = False)) + '\n')
         return func(*args,**kwargs)
     return _log_record
 
@@ -71,6 +76,7 @@ def is_number(s):
 @log_record
 @block_spider
 def index(request):
+    total_page = len(Book.objects.all()) // 10 + 1
     if request.method == "GET":
         a = Book.objects.all()
         total_page = len(a) // 10 + 1
@@ -87,6 +93,7 @@ def index(request):
                     a = a.filter(book_name__icontains = s)
             else:
                 a = Book.objects.filter(book_name__icontains = search)
+            total_page = len(a) // 10 + 1
     return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':1})
 
 @log_record
@@ -104,77 +111,166 @@ def about(request):
 @log_record
 @block_spider
 def page(request,page_num):
-    total_page = len(Book.objects.all()) //10 +1
-    a = Book.objects.all().order_by('-date')[(page_num-1)*10:page_num*10]
+    total_page = len(Book.objects.all()) // 10 + 1
+    a = Book.objects.all().order_by('-date')[(page_num - 1) * 10:page_num * 10]
     return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':page_num})
 
+#@csrf_exempt
+#def postbox(request):
+#    if request.method == "POST":
+#        date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+#        onedrive_data = json.loads(request.body)
+#        pprint(onedrive_data)
+#        file_name_l = onedrive_data['name'].split('.')
+#        file_name,file_format = file_name_l[0],file_name_l[1] #将书名和文件格式分离
+#        b = Book.objects.filter(book_name = file_name)
+#        if b: #如果数据库中存在
+#            b = Book.objects.get(book_name = file_name)
+#            b.saveUrl(file_format,onedrive_data['url'])
+#        else:
+#            b = Book()
+#            douban_data = get_book_data(file_name)
+#            if douban_data['author'] == []:
+#                douban_data['author'] = ['未知']
+#            if douban_data:
+#                b = Book(book_name = douban_data['title'],
+#                     author = douban_data['author'][0],
+#                 file_idm=onedrive_data['idm'],
+#                 douban_id=douban_data['id'],
+#                 cover_img_url='https://images.weserv.nl/?url=' +
+#                 douban_data['images']['small'][8:],date=date)
+#                b.cover_img_large_url = 'https://images.weserv.nl/?url=' +
+#                douban_data['images']['large'][8:]
+#                b.saveUrl(file_format,onedrive_data['url'])
+#                b.brief = douban_data['summary']
+#            else:
+#                b.book_name = file_name
+#                b.file_idm = onedrive_data['idm']
+#                b.saveUrl(file_format,onedrive_data['url'])
+#                b.date = date
+#                if douban_data == None:
+#                    logging.error('找不到这本书：' + file_name)
+#                if douban_data == False:
+#                    logging.error('豆瓣api错误')
+#        b.save()
+#        return render(request,'book/404.html')
+#    else:
+#        return render(request,'book/404.html',status = 404)
 @csrf_exempt
 def postbox(request):
     if request.method == "POST":
         onedrive_data = json.loads(request.body)
-        pprint(onedrive_data)
-        file_name_l = onedrive_data['name'].split('.')
-        file_name,file_format = file_name_l[0],file_name_l[1]     #将书名和文件格式分离
-        douban_data = get_book_data(file_name)
-        pprint(douban_data)
-        if douban_data == False:
-            logging.error('豆瓣api错误')
-            h = HttpResponse('豆瓣api错误')
-            h.status_code = 417
-            return h
-        if douban_data == None:
-            logging.error('找不到这本书：' + file_name)
-            b = Book(book_name = file_name,file_idm=onedrive_data['idm'])
-            if file_format == 'epub':
-                b.epub_download_url = onedrive_data['url']
-                b.epub_flag = True
-            if file_format == 'azw3':
-                b.azw3_download_url = onedrive_data['url']
-                b.azw3_flag = True
-            if file_format == 'pdf':
-                b.pdf_download_url = onedrive_data['url']
-                b.pdf_flag = True
-            if file_format == 'mobi':
-                b.mobi_download_url = onedrive_data['url']
-                b.mobi_flag = True
-            b.cover_img_url = 'http://18.222.57.174/book/static/None_cover.png'
-            b.douban_id = file_name
-            h = HttpResponse('找不到这本书')
-            h.status_code = 417
-            return h
-        if Book.objects.filter(douban_id=douban_data['id']):    #用豆瓣id查询数据库
-            b = Book.objects.get(douban_id=douban_data['id'])
-            if file_format == 'epub' and b.epub_flag == False:
-                b.epub_download_url = onedrive_data['url']
-            if file_format == 'azw3' and b.azw3_flag == False:
-                b.azw3_download_url = onedrive_data['url']
-            if file_format == 'pdf' and b.pdf_flag:
-                b.pdf_download_url = onedrive_data['url']
-            if file_format == 'mobi' and b.mobi_flag == False:
-                b.mobi_download_url = onedrive_data['url']
-        else:
-            date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            b = Book(book_name = douban_data['title'],
-                     author = douban_data['author'][0],
-                 file_idm=onedrive_data['idm'],
-                 douban_id=douban_data['id'],
-                 cover_img_url='https://images.weserv.nl/?url=' + douban_data['images']['small'][8:],
-                 date=date)
-            if file_format == 'epub':
-                b.epub_download_url = onedrive_data['url']
-                b.epub_flag = True
-            if file_format == 'azw3':
-                b.azw3_download_url = onedrive_data['url']
-                b.azw3_flag = True
-            if file_format == 'pdf':
-                b.pdf_download_url = onedrive_data['url']
-                b.pdf_flag = True
-            if file_format == 'mobi':
-                b.mobi_download_url = onedrive_data['url']
-                b.mobi_flag = True
-        b.save()
-    return HttpResponse('<h1>404</h1>')
+        file_name = onedrive_data['name'].split('.')
+        file_name,file_format = file_name[0],file_name[1]
+        print(Book.objects.filter(file_name=file_name))
+        if Book.objects.filter(file_name=file_name):    #如果存在这本书
+            b = Book.objects.get(file_name=file_name)
+            b.save_url(onedrive_data['url'],file_format)
+            b.save()
+        else:                                           #如果不存在这本书
+            douban_data = get_book_data(file_name)
+            pprint(douban_data)
+            if douban_data:
+                b = Book()
+                b.file_name = file_name
+                b.title = douban_data['title']
+                if douban_data['subtitle']:
+                    b.subtitle = douban_data['subtitle']
+                if douban_data['alt_title']:
+                    b.english_title = douban_data['alt_title']
+                b.save()        #为添加作者准备
+                if douban_data.get('author'):       #如果作者不为空
+                    author = douban_data.get('author')
+                    if len(author) == 1:
+                        a_inf = douban_data['author_intro']
+                    else:
+                        a_inf = douban_data['author_intro'].split('\n')[1::2]
+                    al = []
+                    if len(a_inf) == len(douban_data['author']):
+                        a_inf = a_inf
+                    else:
+                        a_inf = ['不详' for i in range(len(douban_data['author']))]
+                    for i in range(len(douban_data['author'])):
+                        d = {}
+                        d['name'] = douban_data['author'][i]
+                        d['information'] = a_inf[i]
+                        al.append(d)
+                    for l in al:
+                        a = None
+                        if not Author.objects.filter(name = l['name']):     #添加作者
+                            a = Author()
+                            a.name = l['name']
+                            a.information = l['information']
+                            a.save()
+                            a.book.add(b)
+                        else:
+                            a = Author.objects.get(name = l['name'])
+                            a.book.add(b)
+                        b.author.add(a)
+                pprint(douban_data.get('price'))
+                if douban_data.get('price'):
+                    b.price = douban_data['price']
+                b.cover = 'https://images.weserv.nl/?url=' + douban_data['images']['small'][8:]
+                b.large_cover = 'https://images.weserv.nl/?url=' + douban_data['images']['large'][8:]
+                b.summary = douban_data['summary']
+                b.catalog = douban_data['catalog']
+                if not Publisher.objects.filter(name = douban_data['publisher']):   #添加出版社
+                    p = Publisher(name=douban_data['publisher'])
+                    p.save()
+                else:
+                    p=Publisher.objects.get(name=douban_data['publisher'])
+                b.publisher.add(p)
+                p.book.add(b)
+                b.save()
+                b.douban_id = douban_data['id']
+                b.isbn10 = douban_data['isbn10']
+                b.isbn13 = douban_data['isbn13']
+                b.pages = douban_data['pages']
+                if douban_data.get('tags'):
+                    b.save()
+                    for d_t in douban_data['tags']:
+                        t = Tag()
+                        t.name = d_t['name']
+                        t.title = d_t['title']
+                        t.save()
+                        t.book.add(b)
+                        b.tags.add(t)
+                s = douban_data.get('series')
+                if s and type(s) == type({}):
+                    b.save()
+                    s = Series()
+                    s.name = douban_data.get('series')['title']
+                    s.save()
+                    s.book.add(b)
+                    b.series.add(s)
+                tr = douban_data.get('translator')
+                pprint(tr)
+                if tr and type(tr) == type([]):
+                    b.save()
+                    for tr in tr:
+                        if not Translator.objects.filter(name=tr):
+                            t = Translator()
+                            t.name = tr
+                            t.save()
+                            t.book.add(b)
+                            b.translator.add(t)
+                        else:
+                            b.translator.add(Translator.objects.get(name=tr))
+                b.save_url(onedrive_data['url'],file_format)
 
+            else:
+                if not Book.objects.filter(file_name=file_name):
+                    b = Book()
+                    b.file_name = b.title = file_name
+                    b.save_url(onedrive_data['url'],file_format)
+                else:
+                    b = Book.objects.get(file_name=file_name)
+                    b.save_url(onedrive_data['url'],file_format)
+        b.date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        b.save()
+        return render(request,'book/404.html')
+    else:
+        return render(request,'book/404.html',status = 404)
 
 def page_not_found(request, exception):
     return render(request,'book/404.html',status=404)

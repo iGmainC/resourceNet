@@ -15,12 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-import movie
 import book
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('movie/',include("movie.urls")),
     path('',include("book.urls")),
 ]
 handler404 = book.views.page_not_found

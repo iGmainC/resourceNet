@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-q50w139uigrj36k8(hhm7^-21&0$xlh@&^ua7%ubuamb7indz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False
-#ALLOWED_HOSTS = ['192.168.137.1','127.0.0.1','18.222.57.174']
-ALLOWED_HOSTS = ['18.222.57.174']
+DEBUG = True
+#DEBUG = False
+ALLOWED_HOSTS = ['192.168.137.1','127.0.0.1','18.222.57.174']
+#ALLOWED_HOSTS = ['18.222.57.174']
 
 
 # Application definition
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',          #会话框架
     'django.contrib.messages',          #消息框架
     'django.contrib.staticfiles',       #管理静态文件的框架
-    'movie',
     'book',
+    'book.templatetags',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +121,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
