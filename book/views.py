@@ -37,6 +37,17 @@ def get_book_data(book_name):
 def get_equal_rate(str1, str2):
    return Levenshtein.ratio(str1, str2)
 
+#推送
+def push_book(file_name,mail):
+    url = 'https://prod-04.southeastasia.logic.azure.com:443/workflows/53a4063f223544789f407e0d8b1a23af/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=psQUXlsBA7zbp64EY4Hw0HpLhddnBhmOD5a7ROxwwY8'
+    headers = {'Content-Type': 'application/json'}
+    d = {}
+    d["file_name"] = file_name
+    d['mail']=mail
+    r = requests.post(url,headers=headers,data=json.dumps(d),timeout=200)
+    print([r.status_code,r.text])
+    return [r.status_code,r.text]
+
 #反爬装饰器
 def block_spider(func):
     def _block_spider(*args,**kwargs):
@@ -99,14 +110,46 @@ def index(request):
 @log_record
 @block_spider
 def detail(request,id):
-    b = Book.objects.get(douban_id=id)
-    print(b)
+    if is_number(id):
+        b = Book.objects.get(douban_id=id)
+    else:
+        b = Book.objects.get(file_name=id)
     return render(request,'book/detail.html',{'information':b})
 
 @log_record
 @block_spider
 def about(request):
     return render(request,'book/about.html')
+
+
+#def push(request,file_name):
+#    if request.method=="POST":
+#        mail = request.POST.get('mail',0)
+#        state = push(file_name+'.mobi',mail)
+#        if state==True:
+#            return render(request,'book/push.html',data={'state':'成功！','inf':''})
+#        if state==False:
+#            return render(request,'book/push.html',data={'state':'失败！','inf':'文件过大'})
+#        if state==None:
+#            return render(request,'book/push.html',data={'state':'失败！','inf':'未知错误，请重试'})
+#    else:
+#        
+@csrf_exempt
+def push(request):
+    mail = request.POST.get('mail')
+    file_name = request.POST.get('file_name')
+    state = push_book(file_name+'.mobi',mail)
+    if state[0] == 200:
+        return render(request,'book/push.html',{'state':'成功！','inf':''})
+    if state[0]==404:
+        b = Book.objects.get(file_name=file_name)
+        b.mobi_file_size=int(state[1])
+        b.save()
+        return render(request,'book/push.html',{'state':'失败！','inf':'文件过大，为 '+str(int(state[1])/1024//1024)+'MB 限制为25MB'})
+    else:
+        return render(request,'book/push.html',{'state':'失败！','inf':'未知错误，请重试'})
+    return render(request,'book/404.html',status = 404)
+
 
 @log_record
 @block_spider
@@ -115,47 +158,6 @@ def page(request,page_num):
     a = Book.objects.all().order_by('-date')[(page_num - 1) * 10:page_num * 10]
     return render(request,'book/index.html',{'information':a,'total_page':total_page,'now_page':page_num})
 
-#@csrf_exempt
-#def postbox(request):
-#    if request.method == "POST":
-#        date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-#        onedrive_data = json.loads(request.body)
-#        pprint(onedrive_data)
-#        file_name_l = onedrive_data['name'].split('.')
-#        file_name,file_format = file_name_l[0],file_name_l[1] #将书名和文件格式分离
-#        b = Book.objects.filter(book_name = file_name)
-#        if b: #如果数据库中存在
-#            b = Book.objects.get(book_name = file_name)
-#            b.saveUrl(file_format,onedrive_data['url'])
-#        else:
-#            b = Book()
-#            douban_data = get_book_data(file_name)
-#            if douban_data['author'] == []:
-#                douban_data['author'] = ['未知']
-#            if douban_data:
-#                b = Book(book_name = douban_data['title'],
-#                     author = douban_data['author'][0],
-#                 file_idm=onedrive_data['idm'],
-#                 douban_id=douban_data['id'],
-#                 cover_img_url='https://images.weserv.nl/?url=' +
-#                 douban_data['images']['small'][8:],date=date)
-#                b.cover_img_large_url = 'https://images.weserv.nl/?url=' +
-#                douban_data['images']['large'][8:]
-#                b.saveUrl(file_format,onedrive_data['url'])
-#                b.brief = douban_data['summary']
-#            else:
-#                b.book_name = file_name
-#                b.file_idm = onedrive_data['idm']
-#                b.saveUrl(file_format,onedrive_data['url'])
-#                b.date = date
-#                if douban_data == None:
-#                    logging.error('找不到这本书：' + file_name)
-#                if douban_data == False:
-#                    logging.error('豆瓣api错误')
-#        b.save()
-#        return render(request,'book/404.html')
-#    else:
-#        return render(request,'book/404.html',status = 404)
 @csrf_exempt
 def postbox(request):
     if request.method == "POST":
@@ -222,9 +224,12 @@ def postbox(request):
                 p.book.add(b)
                 b.save()
                 b.douban_id = douban_data['id']
-                b.isbn10 = douban_data['isbn10']
-                b.isbn13 = douban_data['isbn13']
-                b.pages = douban_data['pages']
+                if douban_data['isbn10']:
+                    b.isbn10 = douban_data['isbn10']
+                if douban_data['isbn13']:
+                    b.isbn13 = douban_data['isbn13']
+                if douban_data['pages']:
+                    b.pages = douban_data['pages']
                 if douban_data.get('tags'):
                     b.save()
                     for d_t in douban_data['tags']:
@@ -255,10 +260,10 @@ def postbox(request):
                             b.translator.add(t)
                         else:
                             b.translator.add(Translator.objects.get(name=tr))
-                b.save_url(onedrive_data['url'],file_format)
+                b.save_url(onedrive_data['url'],file_format,onedrive_data['size'])
             else:
                 b.file_name = b.title = file_name
-                b.save_url(onedrive_data['url'],file_format)
+                b.save_url(onedrive_data['url'],file_format,onedrive_data['size'])
         b.save()
         return render(request,'book/404.html')
     else:

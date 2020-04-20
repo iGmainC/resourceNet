@@ -6,5 +6,6 @@ urlpatterns = [
     path('detail/<id>/',views.detail,name='detail'),
     path('postbox/',views.postbox),
     path('about/',views.about,name="about"),
-    path('page=<int:page_num>/',views.page,name="page")
+    path('page=<int:page_num>/',views.page,name="page"),
+    path("push/",views.push,name="push")
     ]

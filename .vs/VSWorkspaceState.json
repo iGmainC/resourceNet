@@ -2,11 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\book",
-    "\\book\\static",
+    "\\book\\migrations",
     "\\book\\static\\book",
     "\\book\\static\\book\\css",
     "\\book\\templates",
     "\\book\\templates\\book",
+    "\\book\\templatetags",
     "\\resourcesNet"
   ],
   "SelectedNode": "\\book\\models.py",

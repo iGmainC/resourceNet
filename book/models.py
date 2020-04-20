@@ -9,8 +9,8 @@ class Book(models.Model):
     english_title = CharField(max_length=200,null=True,blank=True,default = '',verbose_name='英文书名')
     author = ManyToManyField('Author',blank=True,related_name='book_author',verbose_name='作者')
     price = CharField(max_length=10,null=True,blank=True,default = '未知',verbose_name='售价')
-    cover = CharField(max_length=200,blank=True,default = 'http://18.222.57.174/static/images/None_cover.png/',verbose_name='封面链接')
-    large_cover = CharField(max_length=200,default = 'http://18.222.57.174/static/images/None_cover.png/',verbose_name='封面大图')
+    cover = CharField(max_length=200,blank=True,default = 'http://18.222.57.174/static/book/images/None_cover.png',verbose_name='封面链接')
+    large_cover = CharField(max_length=200,default = 'http://18.222.57.174/static/book/images/None_cover.png',verbose_name='封面大图')
     summary = TextField(null=True,blank=True,default = '暂无',verbose_name='简介')
     catalog = TextField(null=True,blank=True,default = '暂无',verbose_name='目录')
     publisher = ManyToManyField('Publisher',blank=True,related_name='book_publisher',verbose_name='出版社')
@@ -18,7 +18,7 @@ class Book(models.Model):
     true_douban_id = CharField(max_length=30,null=True,blank=True,default = '',verbose_name='用于勘误的豆瓣ID')
     isbn10 = CharField(max_length=20,default = '',null=True,blank=True)
     isbn13 = CharField(max_length=26,default = '',null=True,blank=True)
-    pages = IntegerField(null=True,blank=True,verbose_name='页数')
+    pages = CharField(max_length=10,default = '',null=True,blank=True,verbose_name='页数')
     tags = ManyToManyField('Tag',blank=True,related_name='book_tags',verbose_name='标签')
     series = ManyToManyField('Series',blank=True,related_name='book_series',verbose_name='系列')
     translator = ManyToManyField('Translator',blank=True,related_name='book_translator',verbose_name='译者')
@@ -32,6 +32,7 @@ class Book(models.Model):
     mobi_download = TextField(null=True,blank=True,default = '',verbose_name='MOBI下载链接')
     pdf_download = TextField(null=True,blank=True,default = '',verbose_name='PDF下载链接')
     kfx_download = TextField(null=True,blank=True,default = '',verbose_name='KFX下载链接')
+    mobi_file_size=IntegerField(null=True,blank=True,verbose_name='MOBI文件大小（字节）')
     date = DateTimeField(null=True)
 
 
@@ -39,7 +40,7 @@ class Book(models.Model):
         verbose_name = "书籍"
         verbose_name_plural = "书籍"
 
-    def save_url(self,url,format):
+    def save_url(self,url,format,size):
         if format == 'epub' and self.epub_flag == False:
             self.epub_download = url + '?download=1'
             self.epub_flag = True
@@ -49,6 +50,7 @@ class Book(models.Model):
         if format == 'mobi' and self.mobi_flag == False:
             self.mobi_download = url + '?download=1'
             self.mobi_flag = True
+            self.mobi_file_size = int(size)
         if format == 'pdf' and self.pdf_flag == False:
             self.pdf_download = url + '?download=1'
             self.pdf_flag = True

@@ -60,6 +60,32 @@
                 </td>
             </tr>
         </table>
+        <br />
+        {% if information.mobi_flag%}
+        {% if information.mobi_file_size and information.mobi_file_size < 26214400 %}
+        <div class="push_div">
+            <form action="{% url 'push' %}" method="post">
+                {% csrf_token %}
+                <h3>随缘推送</h3>
+                <input type="email" name="mail" placeholder="kindle推送邮箱" />
+                <input type="hidden" name="file_name" value="{{information.file_name}}" />
+                <button type="submit">推送</button>
+            </form>
+        </div>
+        {% elif not information.mobi_file_size %}
+        <div class="push_div">
+            <form action="{% url 'push' %}" method="post">
+                {% csrf_token %}
+                <h3>随缘推送</h3>
+                <input type="email" name="mail" placeholder="kindle推送邮箱" />
+                <input type="hidden" name="file_name" value="{{information.file_name}}" />
+                <button type="submit">推送</button>
+            </form>
+        </div>
+        {% else %}
+        <h3>Mobi文件过大，为{{information.mobi_file_size|div:1024|div:1024|floor_div:1}}MB，无法推送</h3>
+        {% endif %}
+        {% endif %}
     </div>
 </div>
     {% endif %}

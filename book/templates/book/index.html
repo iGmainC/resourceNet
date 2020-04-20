@@ -8,7 +8,11 @@
 {% if information %}
 {% for i in information %}
 <div class="inf_div">
+	{% if i.douban_id %}
     <a href="{% url 'detail' id=i.douban_id %}">
+	{% else %}
+    <a href="{% url 'detail' id=i.file_name %}">
+	{% endif %}
         <img src="{{i.cover}}" alt="Alternate Text" />
         <div class="inf_text">
             <h2><i class="fa fa-book-open" aria-hidden="true"></i>{{ i.file_name }}</h2>
@@ -31,7 +35,11 @@
 		azw3
 		{% endif %}
 	</span>
-		<a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
+	{% if i.douban_id %}
+	<a href="{% url 'detail' id=i.douban_id %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
+	{% else %}
+	<a href="{% url 'detail' id=i.file_name %}"><span><i class="fas fa-download" aria-hidden="true"></i>立即下载</span></a>
+	{% endif %}
     </div>
 </div>
 
