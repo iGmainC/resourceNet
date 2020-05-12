@@ -51,12 +51,17 @@ def push_book(file_name,mail):
 #反爬装饰器
 def block_spider(func):
     def _block_spider(*args,**kwargs):
-        if "python" in args[0].META["HTTP_USER_AGENT"]:
+        if args[0].META["HTTP_USER_AGENT"]:
+            if "python" in args[0].META["HTTP_USER_AGENT"]:
+                h = HttpResponse("400")
+                h.status_code = 400
+                return h
+            else:
+                return func(*args, **kwargs)
+        else:
             h = HttpResponse("400")
             h.status_code = 400
             return h
-        else:
-            return func(*args, **kwargs)
     return _block_spider
 
 #日志装饰器
@@ -110,30 +115,24 @@ def index(request):
 @log_record
 @block_spider
 def detail(request,id):
-    if is_number(id):
-        b = Book.objects.get(douban_id=id)
+    is_n_flag = is_number(id)
+    if is_n_flag:
+        b = Book.objects.filter(douban_id=id)
     else:
-        b = Book.objects.get(file_name=id)
-    return render(request,'book/detail.html',{'information':b})
+        b = Book.objects.filter(file_name=id)
+    if b:
+        if is_n_flag:
+            b = Book.objects.get(douban_id=id)
+        else:
+            b = Book.objects.get(file_name=id)
+        return render(request,'book/detail.html',{'information':b})
+    return render(request,'book/404.html',status = 404)
 
 @log_record
 @block_spider
 def about(request):
     return render(request,'book/about.html')
 
-
-#def push(request,file_name):
-#    if request.method=="POST":
-#        mail = request.POST.get('mail',0)
-#        state = push(file_name+'.mobi',mail)
-#        if state==True:
-#            return render(request,'book/push.html',data={'state':'成功！','inf':''})
-#        if state==False:
-#            return render(request,'book/push.html',data={'state':'失败！','inf':'文件过大'})
-#        if state==None:
-#            return render(request,'book/push.html',data={'state':'失败！','inf':'未知错误，请重试'})
-#    else:
-#        
 @csrf_exempt
 def push(request):
     mail = request.POST.get('mail')
@@ -162,11 +161,21 @@ def page(request,page_num):
 def postbox(request):
     if request.method == "POST":
         onedrive_data = json.loads(request.body)
-        file_name = onedrive_data['name'].split('.')
-        file_name,file_format = file_name[0],file_name[1]
+        if onedrive_data['name'][-5] == '.':
+            file_name,file_format = onedrive_data['name'][:-5],onedrive_data['name'][-4:]
+        elif onedrive_data['name'][-4] == '.':
+            file_name,file_format = onedrive_data['name'][:-4],onedrive_data['name'][-3:]
+        else:
+            h = HttpResponse('后缀名不合法')
+            h.status = 404
+            return h
+        if (file_format != 'epub') and (file_format != 'mobi') and (file_format != 'azw3') and (file_format != 'pdf') and (file_format != 'kfx'):
+            h = HttpResponse('后缀名不合法')
+            h.status = 404
+            return h
         if Book.objects.filter(file_name=file_name):    #如果存在这本书
             b = Book.objects.get(file_name=file_name)
-            b.save_url(onedrive_data['url'],file_format)
+            b.save_url(onedrive_data['url'],file_format,onedrive_data['size'])
             b.save()
         else:                                           #如果不存在这本书
             douban_data = get_book_data(file_name)

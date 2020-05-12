@@ -32,9 +32,12 @@ class Book(models.Model):
     mobi_download = TextField(null=True,blank=True,default = '',verbose_name='MOBI下载链接')
     pdf_download = TextField(null=True,blank=True,default = '',verbose_name='PDF下载链接')
     kfx_download = TextField(null=True,blank=True,default = '',verbose_name='KFX下载链接')
+    epub_file_size=IntegerField(null=True,blank=True,verbose_name='EPUB文件大小（字节）')
+    azw3_file_size=IntegerField(null=True,blank=True,verbose_name='AZW3文件大小（字节）')
     mobi_file_size=IntegerField(null=True,blank=True,verbose_name='MOBI文件大小（字节）')
+    pdf_file_size=IntegerField(null=True,blank=True,verbose_name='PDF文件大小（字节）')
+    kfx_file_size=IntegerField(null=True,blank=True,verbose_name='KFX文件大小（字节）')
     date = DateTimeField(null=True)
-
 
     class Meta:
         verbose_name = "书籍"
@@ -44,9 +47,11 @@ class Book(models.Model):
         if format == 'epub' and self.epub_flag == False:
             self.epub_download = url + '?download=1'
             self.epub_flag = True
+            self.epub_file_size = int(size)
         if format == 'azw3' and self.azw3_flag == False:
             self.azw3_download = url + '?download=1'
             self.azw3_flag = True
+            self.azw3_file_size = int(size)
         if format == 'mobi' and self.mobi_flag == False:
             self.mobi_download = url + '?download=1'
             self.mobi_flag = True
@@ -54,9 +59,11 @@ class Book(models.Model):
         if format == 'pdf' and self.pdf_flag == False:
             self.pdf_download = url + '?download=1'
             self.pdf_flag = True
+            self.pdf_file_size = int(size)
         if format == 'kfx' and self.kfx_flag == False:
             self.kfx_download = url + '?download=1'
             self.kfx_flag = True
+            self.kfx_file_size = int(size)
 
     def __str__(self):
         if self.subtitle:
